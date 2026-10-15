@@ -1,0 +1,80 @@
+local CoreGui = game:GetService("CoreGui")
+local TweenService = game:GetService("TweenService")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "viet nam "
+ScreenGui.Parent = CoreGui
+
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 300, 0, 380)
+Frame.Position = UDim2.new(0.5, -150, 0.4, -190)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
+Frame.BorderSizePixel = 0
+Frame.Active = true
+Frame.Draggable = true
+Frame.Parent = ScreenGui
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 10)
+UICorner.Parent = Frame
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Text = "SKYBOX MAKER PRO"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 16
+Title.Parent = Frame
+
+local directions = {"Bk (Đằng sau)", "Dn (Bên dưới)", "Ft (Đằng trước)", "Lf (Bên trái)", "Rt (Bên phải)", "Up (Bên trên)"}
+local textBoxBoxes = {}
+
+for i, dir in ipairs(directions) do
+    local box = Instance.new("TextBox")
+    box.Size = UDim2.new(0, 260, 0, 35)
+    box.Position = UDim2.new(0.5, -130, 0, 15 + (i * 45))
+    box.PlaceholderText = "Nhập Asset ID cho mặt " .. dir
+    box.Text = ""
+    box.TextColor3 = Color3.fromRGB(255, 255, 255)
+    box.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+    box.Font = Enum.Font.Gotham
+    box.TextSize = 13
+    box.Parent = Frame
+    
+    local boxCorner = Instance.new("UICorner")
+    boxCorner.CornerRadius = UDim.new(0, 5)
+    boxCorner.Parent = box
+    
+    local key = string.sub(dir, 1, 2)
+    textBoxBoxes[key] = box
+end
+
+local ApplyBtn = Instance.new("TextButton")
+ApplyBtn.Size = UDim2.new(0, 260, 0, 40)
+ApplyBtn.Position = UDim2.new(0.5, -130, 0, 320)
+ApplyBtn.Text = "THAY ĐỔI BẦU TRỜI"
+ApplyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+ApplyBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 100)
+ApplyBtn.Font = Enum.Font.GothamBold
+ApplyBtn.TextSize = 14
+ApplyBtn.Parent = Frame
+
+local BtnCorner = Instance.new("UICorner")
+BtnCorner.CornerRadius = UDim.new(0, 5)
+BtnCorner.Parent = ApplyBtn
+
+ApplyBtn.MouseButton1Click:Connect(function()
+    local currentIds = {
+        Bk = textBoxBoxes["Bk"].Text,
+        Dn = textBoxBoxes["Dn"].Text,
+        Ft = textBoxBoxes["Ft"].Text,
+        Lf = textBoxBoxes["Lf"].Text,
+        Rt = textBoxBoxes["Rt"].Text,
+        Up = textBoxBoxes["Up"].Text
+    }
+    
+    ApplyBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 120)
+    task.wait(0.3)
+    ApplyBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 100)
+end)
